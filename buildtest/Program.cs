@@ -9,23 +9,35 @@ namespace buildtest
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            string serverIP = "194.146.38.90";
+            int port = 4444;
 
-            TcpListener serverSocket = new TcpListener(
-                IPAddress.Any, 22);
-            serverSocket.Start();
 
-            Console.WriteLine("ApiRequestListener Started");
-
-            while ((true))
+            if (false)
             {
-                var clientSocket = serverSocket.AcceptTcpClient();
-                Console.WriteLine("someone connected");
+                TcpClient clientSocket = new TcpClient();
+                clientSocket.Connect(serverIP, port);
             }
+            else
+            {
+                Console.WriteLine("Hello World!");
 
-            serverSocket.Stop();
-            Console.WriteLine("Exiting...");
-            Console.ReadLine();
+                TcpListener serverSocket = new TcpListener(
+                    IPAddress.Any, port);
+                serverSocket.Start();
+
+                Console.WriteLine("ApiRequestListener Started");
+
+                while ((true))
+                {
+                    var clientSocket = serverSocket.AcceptTcpClient();
+                    Console.WriteLine("someone connected");
+                }
+
+                serverSocket.Stop();
+                Console.WriteLine("Exiting...");
+                Console.ReadLine();
+            }
         }
     }
 }
